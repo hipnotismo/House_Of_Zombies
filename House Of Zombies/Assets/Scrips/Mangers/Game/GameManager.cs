@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject endCanvas;
     public static Action winCondition;
 
+    [SerializeField] private TMP_Text text;
     private int winCon;
     [SerializeField] private int amountOfEnemies;
 
@@ -23,10 +25,14 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         endCanvas.SetActive(false);
+        text.text = "Zombies left: " + amountOfEnemies.ToString();
     }
     public void IncreaseWincon()
     {
         winCon++;
+        int temp = (amountOfEnemies - winCon);
+
+        text.text = "Zombies left: " + temp;
         if (winCon == amountOfEnemies)
         {
             Debug.Log("win!");
@@ -34,6 +40,7 @@ public class GameManager : MonoBehaviour
 
         }
     }
+
     public GameObject ReturnPlayer()
     {
         return playerReference;
