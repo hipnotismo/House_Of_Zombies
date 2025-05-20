@@ -11,6 +11,7 @@ public class InputManager : MonoBehaviour
 
     public static Action<Vector2> MoveCamera;
     public static Action Fire;
+    public static Action Pause;
 
     public void OnMove(InputValue inputValue)
     {
@@ -27,7 +28,13 @@ public class InputManager : MonoBehaviour
 
     public void OnFire()
     {
-        Debug.Log("here");
         Fire();
+    }
+
+    public void OnPause()
+    {
+        Pause();
+        Debug.Log("Pause");
+
     }
 }

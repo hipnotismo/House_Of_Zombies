@@ -9,4 +9,8 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene(sceneNamde);
     }
+    public void SetTimeToOne()
+    {
+        Time.timeScale = 1;
+    }
 }

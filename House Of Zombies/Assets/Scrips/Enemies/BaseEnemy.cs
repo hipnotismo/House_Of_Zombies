@@ -67,7 +67,6 @@ public class BaseEnemy : MonoBehaviour, ITakeDamage
 
         if (collision.gameObject.tag != "Enemy")
         {
-            Debug.Log("Colliswon");
 
             ITakeDamage isHit = collision.collider.GetComponent<ITakeDamage>();
 
