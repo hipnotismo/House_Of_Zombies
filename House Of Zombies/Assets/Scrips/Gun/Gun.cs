@@ -22,7 +22,6 @@ public class Gun : MonoBehaviour
         Vector3 spawnDirection = transform.forward;
 
         Physics.Raycast(spawnPosition, spawnDirection, out hit, 100f);
-        Debug.Log(hit.collider.name);
 
         ITakeDamage isHit = hit.collider.GetComponent<ITakeDamage>();
 
