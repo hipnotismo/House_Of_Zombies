@@ -19,17 +19,16 @@ public class PlayerCamera : MonoBehaviour
 
     private float XRotation;
 
-    /// <summary>
-    /// Subscribes to input manager
-    /// </summary>
+   
     private void OnEnable()
     {
         InputManager.MoveCamera += CameraMovement;
     }
 
-    /// <summary>
-    /// Updates teh mouse position and player rotation
-    /// </summary>
+    private void OnDisable()
+    {
+        InputManager.MoveCamera -= CameraMovement;
+    }
     private void Update()
     {
         var mouseX = MouseRot.x * MouseSensitivity * Time.deltaTime;
@@ -39,15 +38,11 @@ public class PlayerCamera : MonoBehaviour
         XRotation = Mathf.Clamp(XRotation, -70f, 70f);
 
         CamHolder.localRotation = Quaternion.Euler(XRotation, 0f, 0f);
-        //CamWeaponLayer.localRotation = Quaternion.Euler(XRotation, 0f, 0f);
 
         PlayerBody.Rotate(Vector3.up * mouseX);
     }
 
-    /// <summary>
-    /// Gets and actualices the camera vector every time the InputManager detects movement
-    /// </summary>
-    /// <param name="inputValue"></param>
+
     public void CameraMovement(Vector2 inputValue)
     {
         MouseRot = inputValue;

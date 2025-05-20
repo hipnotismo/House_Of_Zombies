@@ -1,19 +1,83 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.InputSystem.HID;
+using static UnityEngine.GraphicsBuffer;
 
-public class BaseEnemy : MonoBehaviour
+public class BaseEnemy : MonoBehaviour, ITakeDamage
 {
-    // Start is called before the first frame update
+    [SerializeField]private GameObject barricadeTarget;
+    [SerializeField] private GameObject playerTarget;
+
+    private NavMeshAgent navMeshAgent;
+
     void Start()
     {
-        //get barricade refence
-        //gets player reference
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //state machine that run to barricade, attacks and then runs to player
+        if(barricadeTarget != null)
+        {
+            navMeshAgent.destination = barricadeTarget.transform.position;
+
+        }
+        else
+        {
+            navMeshAgent.destination = playerTarget.transform.position;
+
+        }
+        
+    }
+
+    public void SetTarget(GameObject target,GameObject playerTar)
+    {
+        barricadeTarget = target;
+        playerTarget=playerTar;
+    }
+
+    public void TakeDamage()
+    {
+        GameManager.winCondition();
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag != "Enemy")
+        {
+            Debug.Log("Colliswon");
+
+            ITakeDamage isHit = other.GetComponent<ITakeDamage>();
+
+            if (isHit != null)
+            {
+                Debug.Log(isHit);
+
+                isHit.TakeDamage();
+            }
+
+        }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+
+        if (collision.gameObject.tag != "Enemy")
+        {
+            Debug.Log("Colliswon");
+
+            ITakeDamage isHit = collision.collider.GetComponent<ITakeDamage>();
+
+            if (isHit != null)
+            {
+                Debug.Log(isHit);
+
+                isHit.TakeDamage();
+            }
+
+        }
     }
 }

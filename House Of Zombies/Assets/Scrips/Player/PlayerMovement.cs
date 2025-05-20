@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,23 +16,18 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 _currentMovement;
 
+    public static Action Example;
+
     private void OnEnable()
     {
         rigidBody ??= GetComponent<Rigidbody>();
         InputManager.MovePlayer += Movement;
     }
 
-    /// <summary>
-    /// Unsubscribes to the input manager
-    /// </summary>
+   
     private void OnDisable()
     {
         InputManager.MovePlayer -= Movement;
-    }
-
-    void Start()
-    {
-        
     }
 
     private void FixedUpdate()

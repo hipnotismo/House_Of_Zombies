@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,17 +10,24 @@ public class GameManager : MonoBehaviour
 
     [Header("Maybe have references")]
     [SerializeField] private List<GameObject> barricadeReference;
-    void Start()
+    public static Action winCondition;
+
+    private int winCon;
+    [SerializeField] private int amountOfEnemies;
+
+    private void OnEnable()
     {
-        
+        GameManager.winCondition += IncreaseWincon;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void IncreaseWincon()
     {
-        
-    }
+        winCon++;
+        if (winCon == amountOfEnemies)
+        {
 
+        }
+    }
     public GameObject ReturnPlayer()
     {
         return playerReference;
