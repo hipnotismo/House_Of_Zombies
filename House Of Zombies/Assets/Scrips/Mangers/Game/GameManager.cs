@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour
     [Header("Must have references")]
     [SerializeField] private GameObject playerReference;
 
-    [Header("Maybe have references")]
-    [SerializeField] private List<GameObject> barricadeReference;
+    [Header("End of gmae menu")]
+    [SerializeField] private GameObject endCanvas;
     public static Action winCondition;
 
     private int winCon;
@@ -20,11 +20,17 @@ public class GameManager : MonoBehaviour
         GameManager.winCondition += IncreaseWincon;
     }
 
+    private void Start()
+    {
+        endCanvas.SetActive(false);
+    }
     public void IncreaseWincon()
     {
         winCon++;
         if (winCon == amountOfEnemies)
         {
+            Debug.Log("win!");
+            endCanvas.SetActive(true);
 
         }
     }
